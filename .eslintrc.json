@@ -21,7 +21,8 @@
         "no-use-before-define": "off",
         "class-methods-use-this": "off",
         "@typescript-eslint/no-unused-vars": [
-            "error", {
+            "error",
+            {
                 "argsIgnorePattern": "_"
             }
         ],
@@ -37,6 +38,12 @@
         ],
         "prettier/prettier": "error"
     },
+    "@typescript-eslint/interface-name-prefix": [
+        "error",
+        {
+            "prefixWithI": "always"
+        }
+    ],
     "settings": {
         "import/resolver": {
             "typescript": {}

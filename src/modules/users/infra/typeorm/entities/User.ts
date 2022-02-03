@@ -1,5 +1,5 @@
 import { uuid } from 'uuidv4';
-import AppointmentsRepository from '../../../../appointments/repositories/AppointmentsRepository';
+import AppointmentsRepository from '../../../../appointments/infra/typeorm/repositories/AppointmentsRepository';
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 interface AppointmentConstructor {

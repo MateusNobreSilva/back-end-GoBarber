@@ -1,5 +1,5 @@
 import { uuid } from 'uuidv4';
-import AppointmentsRepository from '../../../repositories/AppointmentsRepository';
+import AppointmentsRepository from '../repositories/AppointmentsRepository';
 import {
     Entity,
     Column,
