@@ -2,9 +2,9 @@ import { request, Router } from 'express';
 //import { uuid } from 'uuidv4';
 import { getCustomRepository } from 'typeorm';
 import { startOfHour, parseISO, isEqual } from 'date-fns';
-import AppointmentsRepository from '../repositories/AppointmentsRepository';
-import CreateAppointmentService from '../services/CreateAppointmentService';
-import Appointment from '../models/Appointment';
+import AppointmentsRepository from '../../../../modules/appointments/repositories/AppointmentsRepository';
+import CreateAppointmentService from '../../../../modules/appointments/services/CreateAppointmentService';
+import Appointment from '../../../../modules/appointments/infra/typeorm/entities/Appointment';
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 
 

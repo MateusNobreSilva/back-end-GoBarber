@@ -1,5 +1,5 @@
 import { uuid } from 'uuidv4';
-import AppointmentsRepository from '../repositories/AppointmentsRepository';
+import AppointmentsRepository from '../../../repositories/AppointmentsRepository';
 import {
     Entity,
     Column,
@@ -9,7 +9,7 @@ import {
     ManyToOne,
     JoinColumn
 } from 'typeorm';
-import User from './User';
+import User from '../../../../users/infra/typeorm/entities/User';
 
 interface AppointmentConstructor {
     provider: string;
