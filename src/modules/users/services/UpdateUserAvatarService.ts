@@ -8,14 +8,19 @@ import fs from 'fs';
 // import AppError from '@shared/errors/AppError';
 import AppError from '../../../shared/errors/AppError';
 import IUsersRepository from "../repositories/IUsersRepository";
+import { injectable, inject } from "tsyringe";
 
 interface IRequest {
     user_id: string;
     avatarFilename: string;
 }
 
+@injectable()
 class UpdateUserAvatarService {
-    constructor (private usersRepository: IUsersRepository){}
+    constructor(
+        @inject("UsersRepository")
+        private usersRepository: IUsersRepository
+    ) { }
 
     public async execute({ user_id, avatarFilename }: IRequest): Promise<User> {
         // const usersRepository = getRepository(User);

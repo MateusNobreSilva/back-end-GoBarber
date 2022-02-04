@@ -1,6 +1,7 @@
 import Appointment from "../infra/typeorm/entities/Appointment";
 import AppointmentsRepository from "../infra/typeorm/repositories/AppointmentsRepository";
 import { startOfHour } from 'date-fns';
+import { injectable, inject } from "tsyringe";
 import AppError from '../../../shared/errors/AppError';
 import { getCustomRepository, UpdateQueryBuilder } from 'typeorm';
 
@@ -9,10 +10,11 @@ interface Request {
     provider_id: 'uuid';
     date: Date;
 }
-
+@injectable()
 class CreateAppointmentService {
 
     constructor(
+        @inject('AppointmentsRepository')
         appointmentsRepository: IAppointmentsRepository,
     ) {
 
