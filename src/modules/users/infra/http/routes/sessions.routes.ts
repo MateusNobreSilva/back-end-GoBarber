@@ -1,11 +1,6 @@
 import { Router } from 'express';
-import { container } from "tsyringe";
-import AuthenticateUserService from '../../../services/AuthenticateUserService';
-import UsersRepository from '../../typeorm/repositories/UsersRepository';
-import SessionsController from '../controllers/SessionsController';
+import SessionsController from '../Controllers/SessionsController';
 
-
-// import SessionsController from "../controllers/SessionsController";
 const sessionsRouter = Router();
 const sessionsController = new SessionsController();
 

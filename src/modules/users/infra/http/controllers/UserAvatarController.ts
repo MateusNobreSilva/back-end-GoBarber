@@ -1,28 +1,17 @@
-import { Request, Response } from "express";
-import { container } from "tsyringe";
-import multer from 'multer';
-import uploadConfig from '../../../../../config/upload';
+import { Request, Response } from 'express';
+import { container } from 'tsyringe';
 
-// import CreateUserService from '@modules/users/services/CreateUserService';
-import CreateUserService from '../../../services/CreateUserService';
-// import UpdateUserAvatarService from '@modules/users/services/UpdateUserAvatarService';
-import UpdateUserAvatarService from '../../../services/UpdateUserAvatarService';
-import ensureAuthenticated from '../middlewares/ensureAuthenticated';
-import { RepositoryNotTreeError } from 'typeorm';
-import UsersRepository from '../../typeorm/repositories/UsersRepository';
+import UpdateUserAvatarService from '@modules/users/services/UpDateUserAvatarService';
 
 export default class UserAvatarController {
-    public async update(request: Request, response: Response): Promise<Response> {
-        const usersRepository = new UsersRepository();
-        const UpdateUserAvatar = container.resolve(UpdateUserAvatarService);
-        const user = await UpdateUserAvatar.execute({
-            user_id: request.user.id,
-            avatarFilename: request.file.filename,
-        });
+  public async update(request: Request, response: Response): Promise<Response> {
+    const updateUserAvatar = container.resolve(UpdateUserAvatarService);
 
-        delete user.password;
+    const user = await updateUserAvatar.execute({
+      user_id: request.user.id,
+      avatarFilename: request.file.filename,
+    });
 
-        return response.json(user);
-
-    }
+    return response.json(user);
+  }
 }

@@ -1,42 +1,33 @@
-import Appointment from "../entities/Appointment";
-import { isEqual } from 'date-fns';
-// import { EntityRepository, Repository } from 'typeorm';
 import { getRepository, Repository } from 'typeorm';
+import IAppointmentsRepository from '@modules/appointments/repositories/IApointmentsRepository';
+import ICreateAppointmentDto from '@modules/appointments/dtos/ICreateAppointmentDTO'
+import Appointment from '../entities/Appointment';
 
-import IAppointmentsRepository from "src/modules/appointments/repositories/IAppointmentsRepository";
-import ICreateAppointmentDTO from "src/modules/appointments/dtos/ICreateAppointmentDTO";
-
-// @EntityRepository(Appointment)
-// extends Repository<Appointment>
 
 class AppointmentsRepository implements IAppointmentsRepository {
-    private ormRepository: Repository<Appointment>;
+  private ormRepository: Repository<Appointment>;
 
-    constructor() {
-        this.ormRepository = getRepository(Appointment);
-    }
+  constructor () {
+    this.ormRepository = getRepository(Appointment);
+  }
 
-    public async findByDate(date: Date): Promise<Appointment | undefined> {
-        // const findAppointment = this.appointments.find(appointment =>
-        //     isEqual(date, appointment.date)
-        // );
+  public async findByDate(date: Date): Promise<Appointment | undefined> {
+    const findAppointment = await this.ormRepository.findOne({
+      where: { date },
+    });
 
-        const findAppointment = await this.ormRepository.findOne({
-            where: { date },
-        });
+    return findAppointment;
+  }
 
-        return findAppointment;
-    }
+  public async create({
+    provider_id,
+    date
+  }: ICreateAppointmentDto): Promise<Appointment> {
+    const appointment = this.ormRepository.create({provider_id, date});
 
-    public async create({
-        provider_id, date
-    }: ICreateAppointmentDTO): Promise<Appointment> {
-        const appointment = this.ormRepository.create({ provider_id, date });
-
-        await this.ormRepository.save(appointment);
-
-        return appointment;
-    }
+    await this.ormRepository.save(appointment);
+    return appointment;
+  }
 }
 
 export default AppointmentsRepository;

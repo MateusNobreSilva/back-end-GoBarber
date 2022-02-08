@@ -1,46 +1,37 @@
-import Appointment from "../infra/typeorm/entities/Appointment";
-import AppointmentsRepository from "../infra/typeorm/repositories/AppointmentsRepository";
 import { startOfHour } from 'date-fns';
-import { injectable, inject } from "tsyringe";
-import AppError from '../../../shared/errors/AppError';
-import { getCustomRepository, UpdateQueryBuilder } from 'typeorm';
+import { injectable, inject } from 'tsyringe';
+import IAppointmentsRepository from '../repositories/IApointmentsRepository';
+import Appointment from '../infra/typeorm/entities/Appointment';
+import AppError from '@shared/errors/AppError';
 
-import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
-interface Request {
+interface Request{
     provider_id: 'uuid';
     date: Date;
 }
-@injectable()
-class CreateAppointmentService {
 
-    constructor(
-        @inject('AppointmentsRepository')
-        appointmentsRepository: IAppointmentsRepository,
-    ) {
+injectable();
+class CreateAppointmentService{
+constructor (
+  @inject('AppointmentsRepository')
+  private appointmentsRepository: IAppointmentsRepository) {
 
-    }
+}
 
-    public async execute({ date, provider_id }: Request): Promise<Appointment> {
-        const appointmentsRepository = getCustomRepository(AppointmentsRepository);
+
+    public async execute({provider_id, date}: Request): Promise<Appointment>{
+
         const appointmentDate = startOfHour(date);
-
-        const findAppointmentInSameDate = await appointmentsRepository.findByDate(appointmentDate);
-
-        if (findAppointmentInSameDate) { //o código está certo
+        const appointmentInSameDate = await this.appointmentsRepository.findByDate(appointmentDate);
+        if(appointmentInSameDate){
             throw new AppError('This appointment is already booked');
         }
-
-        const appointment = await appointmentsRepository.create({
+        const appointment = await this.appointmentsRepository.create({
             provider_id,
             date: appointmentDate
         });
 
-        // await appointmentsRepository.save(appointment);
-
         return appointment;
-
     }
-
 }
 
-export default CreateAppointmentService
+export default CreateAppointmentService;
