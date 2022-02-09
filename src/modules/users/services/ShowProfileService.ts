@@ -17,7 +17,7 @@ interface IRequest {
 }
 
 @injectable()
-class UpdateProfileService {
+class ShowProfileService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
@@ -50,9 +50,6 @@ class UpdateProfileService {
       );
     }
 
-
-
-
     if (password && old_password) {
       const checkOldPassword = await this.hashProvider.compareHash(
         old_password,
@@ -73,4 +70,4 @@ class UpdateProfileService {
   }
 }
 
-export default UpdateProfileService;
+export default ShowProfileService;
