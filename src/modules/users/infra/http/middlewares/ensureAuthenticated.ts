@@ -23,9 +23,14 @@ export default function ensureAuthenticated(
 
   const [, token] = authHeader.split(' ');
 
-  try {
-    const decoded = verify(token, authConfig.jwt.secret);
+  console.log("token: " + token);
+  console.log(" / / / / ");
+  console.log("authConfig.jwt.secret: " + authConfig.jwt.secret);
 
+  try {
+    console.log(" / / / / ");
+    const decoded = verify(token, authConfig.jwt.secret);
+    console.log("decoded: " + decoded);
     const { sub } = decoded as ITokenPayload;
 
     request.user = {

@@ -1,37 +1,38 @@
-import { container } from "tsyringe";
-import mailConfig from '@config/mail';
 
-import IStorageProvider from './StorageProvider/models/IStorageProvider';
-import DiskStorageProvider from './StorageProvider/implementations/DiskStorageProvider';
-import IMailProvider from './MailProvider/models/IMailProvider'
-import EtherealMailProvider from './MailProvider/implementations/EtherealMailProvider';
-
-import SESMailProvider from './MailProvider/implementations/SESMailProvider';
+import './StorageProvider';
+import './MailTemplateProvider';
+import './MailProvider';
 
 
-import IMailTemplateProvider from "./MailProvider/models/IMailProvider";
-import HandlebarsMailTemplateProvider from "./MailTemplateProvider/implementations/HandlebarsMailTemplateProvider.ts";
 
-container.registerSingleton<IStorageProvider>(
-  'StorageProvider',
-  DiskStorageProvider
-);
+// import { container } from "tsyringe";
+// import mailConfig from '@config/mail';
 
-container.registerSingleton<IMailTemplateProvider>(
-  'MailTemplateProvider',
-  HandlebarsMailTemplateProvider,
-);
+// import IStorageProvider from './StorageProvider/models/IStorageProvider';
+// import DiskStorageProvider from './StorageProvider/implementations/DiskStorageProvider';
+// import IMailProvider from './MailProvider/models/IMailProvider';
+
+// import mailProvider from './MailProvider';
 
 
-container.registerInstance<IMailProvider>(
-  'MailProvider',
-  // container.resolve(
-  mailConfig.driver === 'ethereal'
-    ? container.resolve(EtherealMailProvider)
-    : container.resolve(SESMailProvider),
-  //  )
-  // container.resolve(EtherealMailProvider),
-);
+// import IMailTemplateProvider from "./MailProvider/models/IMailProvider";
+// import HandlebarsMailTemplateProvider from "./MailTemplateProvider/implementations/HandlebarsMailTemplateProvider.ts";
+
+// import './MailTemplateProvider';
+// import './MailProvider';
+
+// container.registerSingleton<IStorageProvider>(
+//   'StorageProvider',
+//   DiskStorageProvider
+// );
+
+// container.registerSingleton<IMailTemplateProvider>(
+//   'MailTemplateProvider',
+//   HandlebarsMailTemplateProvider,
+// );
+
+
+
 
 
 // container.registerInstance<IMailProvider>(
